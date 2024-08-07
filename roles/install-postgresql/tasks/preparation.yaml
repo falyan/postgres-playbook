@@ -1,14 +1,7 @@
 ---
-- name: Membuat File Postgres Repository
-  file:
-    path: "/etc/apt/sources.list.d/pgdg.list"
-    state: "touch"
-
 - name: Menambahkan Repository Postgresql
-  blockinfile:
-    path: "/etc/apt/sources.list.d/pgdg.list"
-    block: |
-      deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main
+  ansible.builtin.shell: |
+    sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 
 - name: Menambahkan GPG key Postgresql
   ansible.builtin.shell: |
