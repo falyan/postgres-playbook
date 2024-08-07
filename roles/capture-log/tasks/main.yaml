@@ -1,0 +1,30 @@
+---
+- name: Install dependencies
+  apt:
+   name:
+    - perl
+    - libjson-xs-perl
+    - libtext-csv-perl
+   state: present
+   update_cache: yes
+  when: inventory_hostname == '10.82.242.3'
+
+- name: Download pgBadger
+  get_url:
+    url: https://github.com/darold/pgbadger/archive/v11.5.tar.gz
+    dest: /tmp/pgbadger.tar.gz
+  when: inventory_hostname == '10.82.242.3'
+
+- name: Extract pgBadger
+  unarchive:
+   src: /tmp/pgbadger.tar.gz
+   dest: /opt/
+   remote_src: yes
+  when: inventory_hostname == '10.82.242.3'
+
+- name: Symlink pgBadger binary
+  file:
+    src: /opt/pgbadger-11.5/pgbadger
+    dest: /usr/local/bin/pgbadger
+    state: link
+  when: inventory_hostname == '10.82.242.3'  

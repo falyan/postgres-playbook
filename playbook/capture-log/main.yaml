@@ -1,0 +1,5 @@
+- name: Install pgBadger
+  hosts: all
+  become: yes
+  roles:
+    - { role: roles/capture-log }
