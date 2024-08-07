@@ -1,7 +1,5 @@
 # Lampiran
-```
   This task using Semaphore Ansible https://docs.semaphoreui.com/, installing on google cloud compute engine with Ubuntu 20.04 LTS
-```
 ## playbook postresql replica (task number 1.a)
 ![Alt text](image/ss-01.png)
 ![Alt text](image/ss-02.png)
