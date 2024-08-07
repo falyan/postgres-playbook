@@ -10,7 +10,7 @@
 
 - name: extact postgres_exporter 
   unarchive:
-    src: /root/postgres-exporter/*.tar.gz
+    src: /root/postgres-exporter/postgres_exporter_v0.5.1_linux-amd64.tar.gz
     dest: /root/postgres-exporter
     remote_src: yes
     creates: /root/postgres-exporter/postgres_exporter
