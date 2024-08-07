@@ -4,8 +4,17 @@
     path: /opt/postgres_exporter
     state: directory
 
-- name: Create file env Postgres exporter
-  command: echo "DATA_SOURCE_NAME='postgresql://{{ username }}:{{ password }}@{{ host_primary }}:{{ port }}}/{{ database-name }}?sslmode=disable'" | tee /opt/postgres_exporter/postgres_exporter.env
+- name: Create file .env postgres exporter
+  file:
+    path: "/opt/postgres_exporter/postgres_exporter.env"
+    state: "touch"
+
+- name: Add K8s Source
+  blockinfile:
+    path: "/opt/postgres_exporter/postgres_exporter.env"
+    block: |
+      DATA_SOURCE_NAME="postgresql://{{ username }}:{{ password }}@{{ host_primary }}:{{ port }}}/{{ database-name }}?sslmode=disable"
+
   
 - name: add postgres
   user:
