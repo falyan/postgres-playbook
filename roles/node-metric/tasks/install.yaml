@@ -1,11 +1,4 @@
 ---
-- name: change owner file node_exporter
-  file:
-    path: /usr/local/bin/node_exporter
-    owner: node_exporter
-    group: node_exporter
-    state: file
-
 - name: Copy systemd service file
   shell: |
    tee /etc/systemd/system/node_exporter.service<<EOF

@@ -1,0 +1,33 @@
+---
+- name: create directory node-exporter
+  file:
+    path: /root/node-exporter
+    state: directory
+
+- name: Download packcge node_exporter 
+  shell: | 
+   cd /root/node-exporter && wget https://github.com/prometheus/node_exporter/releases/download/v1.8.2/node_exporter-1.8.2.linux-amd64.tar.gz
+    
+- name: extact node_exporter 
+  unarchive:
+    src: /root/node-exporter/node_exporter-1.8.2.linux-amd64.tar.gz
+    dest: /root/node-exporter
+    remote_src: yes
+    creates: /root/node-exporter/node_exporter
+
+- name: copy node_exporter
+  shell: |
+    sudo cp /root/node-exporter/node_exporter-1.8.2.linux-amd64/node_exporter /usr/local/bin/node_exporter
+
+- name: add usernode_exporter
+  user:
+    name: node_exporter
+    shell: /bin/false
+    createhome: no
+
+- name: change owner file node_exporter
+  file:
+    path: /usr/local/bin/node_exporter
+    owner: node_exporter
+    group: node_exporter
+    state: file
