@@ -27,9 +27,9 @@
 
 pada gambar diatas adalah infrastruktur aplikasi yang mana terdapat tiga buah app server yang berjalan secara paralel dengan satu tujuan database server, berikut review yang saya lakukan terhadap infrastruktur aplikasi diatas.
 1. jika dilihat dari load balancer perlu ditambahkan firewall sebagai bentuk security.
-2. dilihat dari app server yang berjalan jika memiliki banyak service sebaik nya aplikasi dikemas dalam bentuk containerized atau microservice dan dijalankan diatas teknologi orkestrasi seperti docker swarm, kubernetes, dan openshift.
+2. dilihat dari app server yang berjalan jika memiliki banyak service sebaiknya aplikasi dikemas dalam bentuk containerized atau dipecah lagi menjadi microservice (sesuai pengembangan) dan dijalankan diatas teknologi orkestrasi seperti docker swarm, kubernetes, dan openshift, balik lagi infrastruktur sebuah aplikasi biasanya dibuat sesuai budget yang tersedia( fleksibelitas), bentuk proses pengembangan(complexity), dan sarana yang mendukung.
 3. terlihat juga dari database server yang belum memiliki infrastruktur HA (High Availability), jika jumlah user atau load tinggi sebaiknya disediakan database terdistribusi atau replikasi.
-4. aplikasi yang berjalan membutuhkan monitoring dari infrastruktur diatas belum menunjukan bagian monitoring yang mana ini bagian terpenting buat logging agar memudahkan administrator untuk melakukan tracing error pada sistem.
+4. aplikasi yang berjalan membutuhkan monitoring, dari infrastruktur diatas belum menunjukan bagian monitoring yang mana ini bagian terpenting buat logging agar memudahkan administrator untuk melakukan tracing error pada sistem.
 
 
 
