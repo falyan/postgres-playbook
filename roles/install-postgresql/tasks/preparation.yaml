@@ -15,5 +15,5 @@
     wget -qO- https://www.postgresql.org/media/keys/ACCC4CF8.asc | tee /etc/apt/trusted.gpg.d/pgdg.asc
 
 - name: Perbaharui repository
-  apt:
-   update_cache: yes
+  ansible.builtin.shell: |
+    apt update
