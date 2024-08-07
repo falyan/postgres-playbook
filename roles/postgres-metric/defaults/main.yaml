@@ -1,0 +1,6 @@
+---
+username: monitoring
+password: monitoring
+host_primary: 10.82.242.3
+port: 5432
+database-name: postgres

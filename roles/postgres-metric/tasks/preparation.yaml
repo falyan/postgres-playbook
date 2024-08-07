@@ -1,0 +1,21 @@
+---
+- name: create directory postgres-exporter
+  file:
+    path: /root/postgres-exporter
+    state: directory
+
+- name: Download packcge postgres_exporter 
+  shell: | 
+   cd /root/postgres-exporter && wget https://github.com/wrouesnel/postgres_exporter/releases/download/v0.5.1/postgres_exporter_v0.5.1_linux-amd64.tar.gz
+
+- name: extact postgres_exporter 
+  unarchive:
+    src: /root/postgres-exporter/*.tar.gz
+    dest: /root/postgres-exporter
+    remote_src: yes
+    creates: /root/postgres-exporter/postgres_exporter
+
+- name: copy postgres_exporter
+  shell: |
+    sudo cp /root/postgres-exporter/postgres_exporter_v0.5.1_linux-amd64/postgres_exporter /usr/local/bin/postgres_exporter
+

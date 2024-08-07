@@ -1,0 +1,56 @@
+---
+- name: Create Configuration env Directory 
+  file:
+    path: /opt/postgres_exporter
+    state: directory
+
+- name: Create file env Postgres exporter
+  command: echo "DATA_SOURCE_NAME="postgresql://{{ username }}:{{ password }}@{{ host_primary }}:{{ port }}}/{{ database-name }}?sslmode=disable"" | tee /opt/postgres_exporter/postgres_exporter.env
+  
+- name: add postgres
+  user:
+    name: postgres
+    shell: /bin/false
+    createhome: no
+
+- name: change owner file postgres_exporter
+  file:
+    path: /usr/local/bin/postgres_exporter
+    owner: postgres
+    state: file
+
+- name: Copy systemd service file
+  shell: |
+   tee /etc/systemd/system/postgres_exporter.service<<EOF
+   Description=Prometheus exporter for Postgresql
+   Wants=network-online.target
+   After=network-online.target
+   [Service]
+   User=postgres
+   Group=postgres
+   WorkingDirectory=/opt/postgres_exporter
+   EnvironmentFile=/opt/postgres_exporter/postgres_exporter.env
+   ExecStart=/usr/local/bin/postgres_exporter --web.listen-address=:9187 --web.telemetry-path=/metrics
+   Restart=always
+   [Install]
+   WantedBy=multi-user.target
+   EOF
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Restart postgres_exporter service
+  service:
+    name: postgres_exporter
+    state: restarted
+
+- name: Enable postgres_exporter service
+  systemd:
+    name: postgres_exporter
+    enabled: yes
+
+- name: Start postgres_exporter service
+  systemd:
+    name: postgres_exporter
+    state: started
