@@ -1,0 +1,51 @@
+---
+- name: change owner file node_exporter
+  file:
+    path: /usr/local/bin/node_exporter
+    owner: node_exporter
+    group: node_exporter
+    state: file
+
+- name: Copy systemd service file
+  shell: |
+   tee /etc/systemd/system/node_exporter.service<<EOF
+   [Unit]
+   Description=Node Exporter
+   Wants=network-online.target
+   After=network-online.target
+
+   [Service]
+   User=node_exporter
+   Group=node_exporter
+   Type=simple
+   ExecStart=/usr/local/bin/node_exporter
+   Restart=always
+   RestartSec=3
+
+   [Install]
+   WantedBy=multi-user.target
+   EOF
+
+- name: Restart node_exporter service
+  service:
+    name: node_exporter
+    state: restarted
+
+- name: Reload systemd daemon
+  systemd:
+    daemon_reload: yes
+
+- name: Enable node_exporter service
+  systemd:
+    name: node_exporter
+    enabled: yes
+
+- name: Start node_exporter service
+  systemd:
+    name: node_exporter
+    state: started
+
+- name: allow port node_exporter
+  shell: |
+    sudo iptables -I INPUT -p tcp -m tcp --dport 9100 -j ACCEPT
+    sudo ufw allow 9100
