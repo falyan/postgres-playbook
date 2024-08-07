@@ -27,7 +27,7 @@
   command: sudo -u postgres pg_basebackup -h {{host_primary}} -p {{port}} -U {{user_replication}} -D /var/lib/postgresql/{{ version }}/main/ -Fp -Xs -R
   when: inventory_hostname == '{{ host_replica }}'
 
-- name: Restart Postgresql Primary
+- name: Restart Postgresql Replica
   service:
     name: postgresql
     state: restarted
