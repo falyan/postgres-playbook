@@ -7,6 +7,6 @@
   tags:
     - mount
 
-- include_tasks: sysmlink.yaml
+- include_tasks: symlink.yaml
   tags:
     - sysmlink
