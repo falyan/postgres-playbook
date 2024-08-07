@@ -1,0 +1,7 @@
+---
+- include_tasks: preparation.yaml
+  tags:
+    - prepare
+- include_tasks: configuration.yaml
+  tags:
+    - install
