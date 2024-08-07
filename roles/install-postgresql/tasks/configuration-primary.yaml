@@ -1,0 +1,24 @@
+---
+- name: Uncomment Listen Addreses
+  ansible.builtin.lineinfile:
+    path: /etc/postgresql/{{ version }}/main/postgresql.conf
+    regexp: "^#listen_addresses = 'localhost'"
+    line: "listen_addresses = '{{ host_primary }}'"
+  when: inventory_hostname == '{{ host_primary }}'
+
+- name: Add Sudo Akses User Postgres
+  lineinfile:
+    dest: /etc/postgresql/{{ version }}/main/pg_hba.conf
+    line: 'host    replication     repl_user      {{ host_replica }}/32           md5'
+  when: inventory_hostname == '{{ host_primary }}'
+
+- name: Restart Postgresql Primary
+  service:
+    name: postgresql
+    state: restarted
+  when: inventory_hostname == '{{ host_primary }}'
+
+- name: Membuat User Replikasi
+  ansible.builtin.shell: |
+   sudo -u postgres psql -c "CREATE ROLE {{ user_replication }} WITH REPLICATION LOGIN PASSWORD '{{ password_replication }}';"
+  when: inventory_hostname == '{{ host_primary }}'

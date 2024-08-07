@@ -1,0 +1,37 @@
+---
+- name: Add Sudo Akses User Postgres
+  lineinfile:
+    dest: /etc/sudoers
+    line: 'postgres ALL=(ALL) NOPASSWD:ALL'
+    validate: 'visudo -cf %s'
+
+- name: Menghapus Folder Data Postgresql
+  command: sudo rm -rf /var/lib/postgresql/{{ version }}/main/
+  when: inventory_hostname == '{{ host_replica }}'
+
+- name: Membuat Folder Data Postgresql
+  command: sudo -u postgres mkdir /var/lib/postgresql/{{ version }}/main/
+  when: inventory_hostname == '{{ host_replica }}'
+
+- name: Membuat Folder Data Postgresql
+  command: sudo -u postgres chmod 700 /var/lib/postgresql/{{ version }}/main
+  when: inventory_hostname == '{{ host_replica }}'
+
+- name: Change to postgres user and create file
+  become: yes
+  become_user: postgres
+  command: echo "{{host_primary}}:{{port}}:*:{{user_replication}}:{{password_replication}}" | tee .pgpass && chmod 700 .pgpass
+  when: inventory_hostname == '{{ host_replica }}'
+
+- name: Membuat Folder Data Postgresql
+  command: sudo -u postgres pg_basebackup -h {{host_primary}} -p {{port}} -U {{user_replication}} -D /var/lib/postgresql/{{ version }}/main/ -Fp -Xs -R
+  when: inventory_hostname == '{{ host_replica }}'
+
+- name: Restart Postgresql Primary
+  service:
+    name: postgresql
+    state: restarted
+  when: inventory_hostname == '{{ host_replica }}'
+
+
+

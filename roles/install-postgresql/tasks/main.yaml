@@ -5,3 +5,9 @@
 - include_tasks: install-postgresql.yaml
   tags:
     - install
+- include_tasks: configuration-primary.yaml
+  tags:
+    - configuration-primary
+- include_tasks: configuration-replica.yaml
+  tags:
+    - configuration-replica
