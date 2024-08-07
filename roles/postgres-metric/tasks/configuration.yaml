@@ -13,7 +13,7 @@
   blockinfile:
     path: "/opt/postgres_exporter/postgres_exporter.env"
     block: |
-      DATA_SOURCE_NAME="postgresql://{{ username }}:{{ password }}@{{ host_primary }}:{{ port }}}/{{ database-name }}?sslmode=disable"
+      DATA_SOURCE_NAME="postgresql://{{ username }}:{{ password }}@{{ host_primary }}:{{ port }}/{{ database_name }}?sslmode=disable"
 
   
 - name: add postgres
