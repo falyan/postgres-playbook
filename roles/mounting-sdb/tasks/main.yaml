@@ -1,0 +1,12 @@
+---
+- include_tasks: create-partision.yaml
+  tags:
+    - prepare
+
+- include_tasks: mounting.yaml
+  tags:
+    - mount
+
+- include_tasks: sysmlink.yaml
+  tags:
+    - sysmlink

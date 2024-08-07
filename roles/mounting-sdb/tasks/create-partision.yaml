@@ -1,0 +1,8 @@
+---
+- name: Membuat Sitemfile ext4
+  ansible.builtin.shell: |
+    mkfs.ext4 /dev/sdb
+
+- name: Membuat Folder Mounting
+  ansible.builtin.shell: |
+    mkdir -p /mnt/pg_data

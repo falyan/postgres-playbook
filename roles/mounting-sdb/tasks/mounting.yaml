@@ -1,0 +1,8 @@
+---
+- name: Menambahkan Partisi ke fstab
+  ansible.builtin.lineinfile:
+    path: /etc/fstab
+    line: '/dev/sdb /mnt/pg_data ext4 defaults 0 2'
+
+- name: Mount all filesystems in /etc/fstab
+  ansible.builtin.command: mount -a

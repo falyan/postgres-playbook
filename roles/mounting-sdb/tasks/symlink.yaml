@@ -1,0 +1,4 @@
+---
+- name: Symlink Folder Pgdata
+  ansible.builtin.shell: |
+    ln -s /var/lib/postgresql/{{ version }}/main /mnt/pg_data
