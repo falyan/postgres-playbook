@@ -1,0 +1,5 @@
+- name: Install Postgresql
+  hosts: all
+  become: yes
+  roles:
+    - { role: roles/install-postgresql}
