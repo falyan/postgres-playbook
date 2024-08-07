@@ -5,7 +5,7 @@
     state: directory
 
 - name: Create file env Postgres exporter
-  command: echo "DATA_SOURCE_NAME="postgresql://{{ username }}:{{ password }}@{{ host_primary }}:{{ port }}}/{{ database-name }}?sslmode=disable"" | tee /opt/postgres_exporter/postgres_exporter.env
+  command: echo "DATA_SOURCE_NAME='postgresql://{{ username }}:{{ password }}@{{ host_primary }}:{{ port }}}/{{ database-name }}?sslmode=disable'" | tee /opt/postgres_exporter/postgres_exporter.env
   
 - name: add postgres
   user:
