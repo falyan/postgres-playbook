@@ -25,7 +25,7 @@
 # task number 2
 ![Alt text](image/ss-15.png)
 
-pada gambar diatas terdapat infrastruktur aplikasi yang mana terdapat tiga buah app server yang berjalan secara paralel dengan satu tujuan database server, berikut review yang saya lakukan terhadap infrastruktur aplikasi diatas.
+pada gambar diatas adalah infrastruktur aplikasi yang mana terdapat tiga buah app server yang berjalan secara paralel dengan satu tujuan database server, berikut review yang saya lakukan terhadap infrastruktur aplikasi diatas.
 1. jika dilihat dari load balancer perlu ditambahkan firewall sebagai bentuk security.
 2. dilihat dari app server yang berjalan jika memiliki banyak service sebaik nya aplikasi dikemas dalam bentuk containerized atau microservice dan dijalankan diatas teknologi orkestrasi seperti docker swarm, kubernetes, dan openshift.
 3. terlihat juga dari database server yang belum memiliki infrastruktur HA (High Availability), jika jumlah user atau load tinggi sebaiknya disediakan database terdistribusi atau replikasi.
