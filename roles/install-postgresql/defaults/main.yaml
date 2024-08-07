@@ -1,2 +1,5 @@
 ---
 version: 12
+port: 5432
+host_primary: 10.82.242.3
+host_replica: 10.82.242.4
